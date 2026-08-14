@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/AstroQore/vibebar-model-pricing/main/schema.json",
+  "title": "VibeBar model pricing supplements",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "updatedAt", "unit", "models"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": 1 },
+    "updatedAt": { "type": "string", "format": "date" },
+    "unit": { "const": "usd_per_million_tokens" },
+    "models": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/model" }
+    }
+  },
+  "$defs": {
+    "provider": {
+      "enum": ["codex", "claude", "gemini", "grok", "antigravity"]
+    },
+    "rates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["input", "output"],
+      "properties": {
+        "input": { "type": "number", "minimum": 0 },
+        "output": { "type": "number", "minimum": 0 },
+        "cacheRead": { "type": "number", "minimum": 0 },
+        "cacheWrite": { "type": "number", "minimum": 0 }
+      }
+    },
+    "pricing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["input", "output"],
+      "properties": {
+        "input": { "type": "number", "minimum": 0 },
+        "output": { "type": "number", "minimum": 0 },
+        "cacheRead": { "type": "number", "minimum": 0 },
+        "cacheWrite": { "type": "number", "minimum": 0 },
+        "threshold": { "$ref": "#/$defs/threshold" },
+        "fast": { "$ref": "#/$defs/rates" }
+      }
+    },
+    "threshold": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tokens", "input", "output"],
+      "properties": {
+        "tokens": { "type": "integer", "minimum": 1 },
+        "input": { "type": "number", "minimum": 0 },
+        "output": { "type": "number", "minimum": 0 },
+        "cacheRead": { "type": "number", "minimum": 0 },
+        "cacheWrite": { "type": "number", "minimum": 0 }
+      }
+    },
+    "modelRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "model"],
+      "properties": {
+        "provider": { "$ref": "#/$defs/provider" },
+        "model": { "type": "string", "minLength": 1 }
+      }
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "model", "pricing", "source"],
+      "properties": {
+        "provider": { "$ref": "#/$defs/provider" },
+        "model": { "type": "string", "minLength": 1 },
+        "displayLabel": { "type": "string", "minLength": 1 },
+        "inherits": { "$ref": "#/$defs/modelRef" },
+        "pricing": { "$ref": "#/$defs/pricing" },
+        "source": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

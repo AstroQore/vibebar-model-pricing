@@ -1,0 +1,47 @@
+{
+  "$schema": "./schema.json",
+  "schemaVersion": 1,
+  "updatedAt": "2026-08-14",
+  "unit": "usd_per_million_tokens",
+  "models": [
+    {
+      "provider": "codex",
+      "model": "gpt-daybreak-blue-latest",
+      "displayLabel": "GPT Daybreak Blue",
+      "inherits": {
+        "provider": "codex",
+        "model": "gpt-5.6-sol"
+      },
+      "pricing": {
+        "input": 5.0,
+        "output": 30.0,
+        "cacheRead": 0.5,
+        "cacheWrite": 6.25,
+        "threshold": {
+          "tokens": 272000,
+          "input": 10.0,
+          "output": 45.0,
+          "cacheRead": 1.0,
+          "cacheWrite": 12.5
+        },
+        "fast": {
+          "input": 10.0,
+          "output": 60.0,
+          "cacheRead": 1.0,
+          "cacheWrite": 12.5
+        }
+      },
+      "source": "Alias requested by AstroQore; identical to gpt-5.6-sol"
+    },
+    {
+      "provider": "grok",
+      "model": "grok-composer-2.5-fast",
+      "displayLabel": "Composer 2.5 Fast",
+      "pricing": {
+        "input": 3.0,
+        "output": 15.0
+      },
+      "source": "https://cursor.com/cn/docs/models/cursor-composer-2-5"
+    }
+  ]
+}
