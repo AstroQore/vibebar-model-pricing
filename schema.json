@@ -74,6 +74,11 @@
         "displayLabel": { "type": "string", "minLength": 1 },
         "inherits": { "$ref": "#/$defs/modelRef" },
         "pricing": { "$ref": "#/$defs/pricing" },
+        "override": {
+          "type": "boolean",
+          "default": false,
+          "description": "false or absent: a gap filler, ranked below every public catalog (Portkey, models.dev, LiteLLM) and used only for models they omit. true: a correction, applied after all public catalogs and before the user's local overrides; the resolved rate card (inherited, or this entry's pricing) replaces the merged entry as a whole. Vibe Bar builds that predate this key ignore it and treat the entry as a gap filler."
+        },
         "source": { "type": "string", "minLength": 1 }
       }
     }
